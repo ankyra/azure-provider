@@ -15,6 +15,19 @@ app_id = credentials["appId"]
 password = credentials["password"]
 tenant_id = credentials["tenant"]
 
+def is_az_in_PATH():
+    for directory in os.environ.get("PATH", "").split(":"):
+        dest = os.path.join(directory, "az")
+        if os.path.exists(dest):
+            print "Found 'az' at", dest
+            return True
+    return false
+
+def install_az():
+    if is_az_in_PATH():
+        return
+    print "Installing 'az'"
+
 def run_az(cmd, **kwargs):
     gcloud_cmd = ["az"]
     env = os.environ
@@ -23,15 +36,15 @@ def run_az(cmd, **kwargs):
     print "Executing", " ".join(gcloud_cmd + cmd)
     return subprocess.Popen(gcloud_cmd + cmd, env=env)
 
-print "Activating service account"
+print "Installing az"
+install_az()
 
-_, tmp = tempfile.mkstemp()
-with open(tmp, 'w') as f:
-    f.write(credential_string)
-
+print "Activating subscription", subscription_id
 proc = run_az(["account", "set", "--subscription", subscription_id])
 if proc.wait() != 0:
     sys.exit(1)
+
+print "Activating service account"
 proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id])
 if proc.wait() != 0:
     sys.exit(1)
@@ -49,6 +62,5 @@ result = {
 for key, value in result.iteritems():
     print "Setting output", key
 
-print output_location
 with open(output_location, 'w') as f:
     f.write(json.dumps(result))
