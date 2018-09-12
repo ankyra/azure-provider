@@ -2,7 +2,8 @@ name: azure-cli
 version: 0.0.@
 logo: 
 description: |
-  Makes sure the 'az' binary is available during deployment.
+  Makes sure the 'az' binary is available during deployment. This release uses
+  `apt-get` to install the azure-cli if it can't be found on the PATH.
 
 provides:
 - azure-cli
