@@ -17,19 +17,15 @@ def install_az():
         return
     url = "https://aka.ms/InstallAzureCliBundled"
     print "Installing 'az'"
-    print "Downloading bundle from", url
-    subprocess.check_output(["curl","-s", "-o", "azure-cli_bundle.tar.gz", "-L", url])
-    print "Unpacking bundle"
-    subprocess.check_output(["tar", "-xvzf", "azure-cli_bundle.tar.gz"])
-    bundle_dir = None
-    for fp in os.listdir("."):
-        if fp.startswith("azure-cli_bundle_"):
-            bundle_dir = fp
-    if bundle_dir is None:
-        print "Could not find the unpackaged bundle in its expected destination."
-        sys.exit(1)
-    installer_path = os.path.join(bundle_dir, "installer")
-    print "Running the installer",  installer_path
-    subprocess.check_output([installer_path])
+    lsb_release = subprocess.check_output(["lsb_release", "-cs"])
+    deb = "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ " + lsb_release + " main" 
+    with open("/etc/apt/sources.list.d/azure-cli.list") as f:
+        f.write(deb)
+    key = subprocess.check_output(["curl","-s", "-o", "microsoft.asc", "-L", "https://packages.microsoft.com/keys/microsoft.asc"])
+    subprocess.check_output(["apt-key", "add", "microsoft.asc"])
+    subprocess.check_output(["apt-get", "install", "apt-transport-https"])
+    subprocess.check_output(["apt-get", "update"])
+    subprocess.check_output(["apt-get", "install", "azure-cli"])
+
 
 install_az()
