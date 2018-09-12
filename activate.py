@@ -21,7 +21,7 @@ def is_az_in_PATH():
         if os.path.exists(dest):
             print "Found 'az' at", dest
             return True
-    return false
+    return False
 
 def install_az():
     if is_az_in_PATH():
