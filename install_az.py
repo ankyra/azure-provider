@@ -21,8 +21,15 @@ def install_az():
     subprocess.check_output(["curl","-s", "-o", "azure-cli_bundle.tar.gz", "-L", url])
     print "Unpacking bundle"
     subprocess.check_output(["tar", "-xvzf", "azure-cli_bundle.tar.gz"])
+    bundle_dir = None
+    for fp in os.listdir("."):
+        if fp.startswith("azure-cli_bundle_"):
+            bundle_dir = fp
+    if bundle_dir is None:
+        print "Could not find the unpackaged bundle in its expected destination."
+        sys.exit(1)
     print "Running the installer"
-    if subprocess.Popen(["bash", "azure-cli_bundle_*/installer"]).wait() != 0:
+    if subprocess.Popen(["bash", os.path.join(bundle_dir, "installer")]).wait() != 0:
         sys.exit(1)
 
 install_az()
