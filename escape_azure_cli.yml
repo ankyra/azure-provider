@@ -1,5 +1,5 @@
 name: azure-cli
-version: 0.0.@
+version: 0.1.@
 logo: 
 description: |
   Makes sure the 'az' binary is available during deployment. This release uses

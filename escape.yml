@@ -1,5 +1,5 @@
 name: azure-provider
-version: 0.0.@
+version: 0.1.@
 logo: 
 description: |
   Azure Provider. When deployed this unit provides credentials and 
