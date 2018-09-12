@@ -28,8 +28,8 @@ def install_az():
     if bundle_dir is None:
         print "Could not find the unpackaged bundle in its expected destination."
         sys.exit(1)
-    print "Running the installer"
-    if subprocess.Popen(["bash", os.path.join(bundle_dir, "installer")]).wait() != 0:
-        sys.exit(1)
+    installer_path = os.path.join(bundle_dir, "installer")
+    print "Running the installer",  installer_path
+    subprocess.check_output([installer_path]).wait() != 0:
 
 install_az()
