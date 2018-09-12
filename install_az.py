@@ -22,8 +22,9 @@ def install_az():
     print "Installing lsb-release"
     subprocess.check_output(["apt-get", "install", "lsb-release"])
     print "Writing /etc/apt/sources.list.d/azure-cli.list"
-    lsb_release = subprocess.check_output(["lsb_release", "-cs"])
+    lsb_release = subprocess.check_output(["lsb_release", "-cs"]).trim()
     deb = "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ " + lsb_release + " main" 
+    print " ", deb
     with open("/etc/apt/sources.list.d/azure-cli.list", "w") as f:
         f.write(deb)
     print "Downloading the microsoft.asc key"
