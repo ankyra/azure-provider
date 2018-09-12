@@ -30,6 +30,6 @@ def install_az():
         sys.exit(1)
     installer_path = os.path.join(bundle_dir, "installer")
     print "Running the installer",  installer_path
-    subprocess.check_output([installer_path]).wait() != 0:
+    subprocess.check_output([installer_path])
 
 install_az()
