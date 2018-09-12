@@ -29,7 +29,7 @@ _, tmp = tempfile.mkstemp()
 with open(tmp, 'w') as f:
     f.write(credential_string)
 
-proc = run_az(["account", "set", "--subscription", subscription_id)
+proc = run_az(["account", "set", "--subscription", subscription_id])
 if proc.wait() != 0:
     sys.exit(1)
 proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id])

@@ -15,11 +15,13 @@ includes:
 inputs:
 - id: credentials
   sensitive: true
-  description: Credentials for the service principal (json)
+  description: |
+    Credentials for the service principal (json).
 
 - id: subscription_id
   default: "00000000-0000-0000-0000-000000000000"
-
+  description: | 
+    The Azure subscription ID.
 
 outputs:
 - id: credentials
