@@ -1,0 +1,21 @@
+name: providers/azure-provider
+version: 0.0.@
+description: 
+logo: 
+
+includes:
+- README.md
+
+inputs:
+- id: credentials
+
+outputs:
+- id: app_id
+  default: "00000000-0000-0000-0000-000000000000"
+
+- id: display_name
+  default: 
+
+build: 
+deploy:
+
