@@ -17,16 +17,24 @@ def install_az():
         return
     url = "https://aka.ms/InstallAzureCliBundled"
     print "Installing 'az'"
+    print "Updating apt index"
     subprocess.check_output(["apt-get", "update"])
+    print "Installing lsb-release"
     subprocess.check_output(["apt-get", "install", "lsb-release"])
+    print "Writing /etc/apt/sources.list.d/azure-cli.list"
     lsb_release = subprocess.check_output(["lsb_release", "-cs"])
     deb = "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ " + lsb_release + " main" 
-    with open("/etc/apt/sources.list.d/azure-cli.list") as f:
+    with open("/etc/apt/sources.list.d/azure-cli.list", "w") as f:
         f.write(deb)
+    print "Downloading the microsoft.asc key"
     key = subprocess.check_output(["curl","-s", "-o", "microsoft.asc", "-L", "https://packages.microsoft.com/keys/microsoft.asc"])
+    print "Adding the key"
     subprocess.check_output(["apt-key", "add", "microsoft.asc"])
+    print "Installing apt-transport-https"
     subprocess.check_output(["apt-get", "install", "apt-transport-https"])
+    print "Updating apt index"
     subprocess.check_output(["apt-get", "update"])
+    print "Install azure-cli"
     subprocess.check_output(["apt-get", "install", "azure-cli"])
 
 
