@@ -1,7 +1,9 @@
 name: azure-provider
 version: 0.0.@
-description: 
 logo: 
+description: |
+  Azure Provider. When deployed this unit provides credentials and 
+  common configuration options for other Azure deployments. 
 
 provides:
 - azure
@@ -9,18 +11,41 @@ provides:
 includes:
 - README.md
 
+
 inputs:
 - id: credentials
   sensitive: true
   description: Credentials for the service principal (json)
 
-outputs:
-- id: app_id
+- id: subscription_id
   default: "00000000-0000-0000-0000-000000000000"
 
-- id: display_name
-  default: 
 
-build: 
-deploy:
+outputs:
+- id: credentials
+  sensitive: true
+  description: Credentials for the service principal (json)
+  default: $this.inputs.credentials
 
+- id: client_id
+  description: Also known as the `appId`
+  default: "00000000-0000-0000-0000-000000000000"
+
+- id: client_secret
+  description: Also known as the `password`
+  sensitive: true
+  default: "00000000-0000-0000-0000-000000000000"
+
+- id: tenant_id
+  sensitive: true
+  default: "00000000-0000-0000-0000-000000000000"
+
+- id: subscription_id
+  default: $this.inputs.subscription_id
+
+- id: service_principal_name
+  description: The name of the Service Principal
+
+post_build: activate.py
+post_deploy: activate.py 
+activate_provider: activate.py
