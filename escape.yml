@@ -5,18 +5,14 @@ description: |
   Azure Provider. When deployed this unit provides credentials and 
   common configuration options for other Azure deployments. 
 
+consumes:
+- azure-cli
+
 provides:
 - azure
 
 includes:
 - README.md
-- install_az.sh
-
-downloads:
-- url: https://aka.ms/InstallAzureCli
-  dest: install_az.sh
-  if_not_exists: 
-  - install_az.sh
 
 inputs:
 - id: credentials

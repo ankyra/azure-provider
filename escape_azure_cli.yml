@@ -1,0 +1,15 @@
+name: azure-cli
+version: 0.0.@
+logo: 
+description: |
+  Makes sure the 'az' binary is available during deployment.
+
+provides:
+- azure-cli
+
+includes:
+- README.md
+
+build: install_az.sh
+deploy: install_az.sh 
+activate: install_az.sh
