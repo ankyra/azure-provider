@@ -23,13 +23,8 @@ def run_az(cmd, **kwargs):
     print "Executing", " ".join(gcloud_cmd + cmd)
     return subprocess.Popen(gcloud_cmd + cmd, env=env)
 
-print "Activating subscription", subscription_id
-proc = run_az(["account", "set", "--subscription", subscription_id])
-if proc.wait() != 0:
-    sys.exit(1)
-
 print "Activating service account"
-proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id])
+proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id, "--subscription", subscription_id])
 if proc.wait() != 0:
     sys.exit(1)
 
