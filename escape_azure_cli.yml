@@ -13,4 +13,4 @@ includes:
 
 build: install_az.py
 deploy: install_az.py 
-activate: install_az.py
+activate_provider: install_az.py
