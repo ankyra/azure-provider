@@ -10,7 +10,13 @@ provides:
 
 includes:
 - README.md
+- install_az.sh
 
+downloads:
+- url: https://aka.ms/InstallAzureCli
+  dest: install_az.sh
+  if_not_exists: 
+  - install_az.sh
 
 inputs:
 - id: credentials

@@ -27,6 +27,8 @@ def install_az():
     if is_az_in_PATH():
         return
     print "Installing 'az'"
+    if subprocess.Popen(["bash", "./install_az.sh"]).wait() != 0:
+        sys.exit(1)
 
 def run_az(cmd, **kwargs):
     gcloud_cmd = ["az"]
@@ -48,8 +50,6 @@ print "Activating service account"
 proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id])
 if proc.wait() != 0:
     sys.exit(1)
-
-os.unlink(tmp)
 
 result = {
     "client_id": credentials["appId"],
