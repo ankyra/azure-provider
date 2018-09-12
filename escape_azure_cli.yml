@@ -10,6 +10,6 @@ provides:
 includes:
 - README.md
 
-build: install_az.sh
-deploy: install_az.sh 
-activate: install_az.sh
+build: install_az.py
+deploy: install_az.py 
+activate: install_az.py

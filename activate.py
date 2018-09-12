@@ -15,21 +15,6 @@ app_id = credentials["appId"]
 password = credentials["password"]
 tenant_id = credentials["tenant"]
 
-def is_az_in_PATH():
-    for directory in os.environ.get("PATH", "").split(":"):
-        dest = os.path.join(directory, "az")
-        if os.path.exists(dest):
-            print "Found 'az' at", dest
-            return True
-    return False
-
-def install_az():
-    if is_az_in_PATH():
-        return
-    print "Installing 'az'"
-    if subprocess.Popen(["bash", "./install_az.sh"]).wait() != 0:
-        sys.exit(1)
-
 def run_az(cmd, **kwargs):
     gcloud_cmd = ["az"]
     env = os.environ
@@ -37,9 +22,6 @@ def run_az(cmd, **kwargs):
         env[k] = v
     print "Executing", " ".join(gcloud_cmd + cmd)
     return subprocess.Popen(gcloud_cmd + cmd, env=env)
-
-print "Installing az"
-install_az()
 
 print "Activating subscription", subscription_id
 proc = run_az(["account", "set", "--subscription", subscription_id])
