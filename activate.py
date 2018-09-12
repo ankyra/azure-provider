@@ -24,7 +24,7 @@ def run_az(cmd, **kwargs):
     return subprocess.Popen(gcloud_cmd + cmd, env=env)
 
 print "Activating service account"
-proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id, "--subscription", subscription_id])
+proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id])
 if proc.wait() != 0:
     sys.exit(1)
 
