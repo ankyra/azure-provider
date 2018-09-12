@@ -17,6 +17,7 @@ def install_az():
         return
     url = "https://aka.ms/InstallAzureCliBundled"
     print "Installing 'az'"
+    subprocess.check_output(["apt-get", "install", "lsb-release"])
     lsb_release = subprocess.check_output(["lsb_release", "-cs"])
     deb = "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ " + lsb_release + " main" 
     with open("/etc/apt/sources.list.d/azure-cli.list") as f:
