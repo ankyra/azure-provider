@@ -1,6 +1,6 @@
 name: azure-provider
-version: 0.1.@
-logo: 
+version: 0.2.@
+logo: logo.png
 description: |
   Azure Provider. When deployed this unit provides credentials and 
   common configuration options for other Azure deployments. 
@@ -31,11 +31,51 @@ inputs:
     Login using the Azure cli to activate the Service Principal when this 
     provider gets activated. 
 
+- id: default_location
+  default: UK South
+  items:
+  - Australia Central
+  - Australia Central 2
+  - Australia East
+  - Australia Southeast
+  - Brazil South
+  - Canada Central
+  - Canada East
+  - Central India
+  - Central US
+  - East Asia
+  - East US
+  - East US 2
+  - France Central
+  - France South
+  - Japan East
+  - Japan West
+  - Korea Central
+  - Korea South
+  - North Central US
+  - North Europe
+  - South Central US
+  - Southeast Asia
+  - South India
+  - UK South
+  - UK West
+  - West Central US
+  - West Europe
+  - West India
+  - West US
+  - West US 2
+  description: |
+    The default location for Azure Resource Groups.
+
+
 outputs:
 - id: credentials
   sensitive: true
   description: Credentials for the service principal (json)
   default: $this.inputs.credentials
+
+- id: default_location
+  default: $this.inputs.default_location
 
 - id: client_id
   description: Also known as the `appId`
