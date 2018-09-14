@@ -4,6 +4,9 @@ import sys
 import os
 import subprocess
 
+skip_install = os.environ.get("INPUT_skip_azure_cli_install", "0")
+skip_install = skip_install == "1"
+
 def is_az_in_PATH():
     for directory in os.environ.get("PATH", "").split(":"):
         dest = os.path.join(directory, "az")
@@ -14,6 +17,9 @@ def is_az_in_PATH():
 
 def install_az():
     if is_az_in_PATH():
+        return
+    if skip_install:
+        print "Skipping installation because skip_azure_cli_install is set"
         return
     url = "https://aka.ms/InstallAzureCliBundled"
     print "Installing 'az'"

@@ -11,6 +11,14 @@ provides:
 includes:
 - README.md
 
+inputs:
+- id: skip_azure_cli_install
+  default: false
+  type: bool
+  description: |
+    Skip the installation of the 'az' cli if it can't be found on the PATH. 
+
+
 build: install_az.py
 deploy: install_az.py 
 activate_provider: install_az.py
