@@ -25,6 +25,12 @@ inputs:
   description: | 
     The Azure subscription ID.
 
+- id: login_on_activation
+  default: false
+  description: |
+    Login using the Azure cli to activate the Service Principal when this 
+    provider gets activated. 
+
 outputs:
 - id: credentials
   sensitive: true

@@ -10,6 +10,7 @@ import tempfile
 output_location = sys.argv[1]
 credential_string = os.environ["INPUT_credentials"]
 subscription_id = os.environ["INPUT_subscription_id"]
+login_on_activation = os.environ.get("INPUT_login_on_activation", "0") == "1"
 credentials = json.loads(credential_string)
 app_id = credentials["appId"]
 password = credentials["password"]
@@ -23,10 +24,11 @@ def run_az(cmd, **kwargs):
     print "Executing", " ".join(gcloud_cmd + cmd)
     return subprocess.Popen(gcloud_cmd + cmd, env=env)
 
-print "Activating service account"
-proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id])
-if proc.wait() != 0:
-    sys.exit(1)
+if login_on_activation:
+    print "Activating service account"
+    proc = run_az(["login", "--service-principal", "-u", app_id, "-p", password, "--tenant", tenant_id])
+    if proc.wait() != 0:
+        sys.exit(1)
 
 result = {
     "client_id": credentials["appId"],
